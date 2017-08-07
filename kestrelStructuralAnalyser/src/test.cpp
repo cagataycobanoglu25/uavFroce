@@ -7,6 +7,7 @@
 //============================================================================
 
 #include "staticForceCalculator.hpp"
+#include "shearAnalysis.hpp"
 
 
 #include <iostream>
@@ -14,7 +15,6 @@
 using namespace std;
 
 int main() {
-	cout << "!!!Hello World!!!" << endl; // prints !!!Hello World!!!
 
 	double criticalForceOnBolt;
 	double frontThrust = 50;
@@ -25,6 +25,15 @@ int main() {
 	double frontTiltConnPoint=  110.44;
 	double backTiltConnPoint= 467.93;
 	double distBtwRotAxis= 578.37;
+
+	double yieldStressM3CSK = 210;
+	double yieldStressAlu = 150;
+	double safetyFactor = 3.0;
+
+	double boltNomDiameter = 3.0;
+	double boltPitch = 0.5;
+
+
 
 	staticForceCalculator forceOnSidePlate( frontThrust, backThrust,
 											wingConnFrontPoint, wingConnBackPoint,
@@ -42,6 +51,10 @@ int main() {
 		criticalForceOnBolt = forceOnSidePlate.myForceFrontWingConn;
 	}
 
+	shearAnalysis shearAnalyser ( yieldStressM3CSK, yieldStressAlu,
+								  safetyFactor, boltNomDiameter, boltPitch );
+
+	shearAnalyser.calcShearInBolts( criticalForceOnBolt );
 
 
 	return 0;

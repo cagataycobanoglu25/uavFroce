@@ -33,6 +33,10 @@ int main() {
 	double boltNomDiameter = 3.0;
 	double boltPitch = 0.5;
 
+	double strucThickness = 3.0;
+	double edgeShearLength = 2.3;
+	double restWidthInStruc = 4.6;
+
 
 
 	staticForceCalculator forceOnSidePlate( frontThrust, backThrust,
@@ -52,10 +56,15 @@ int main() {
 	}
 
 	shearAnalysis shearAnalyser ( yieldStressM3CSK, yieldStressAlu,
-								  safetyFactor, boltNomDiameter, boltPitch );
+								  safetyFactor, boltNomDiameter, boltPitch,
+								  strucThickness, edgeShearLength, restWidthInStruc);
 
 	shearAnalyser.calcShearInBolts( criticalForceOnBolt );
-
+	shearAnalyser.calcBearingStressInBolt( criticalForceOnBolt);
+	shearAnalyser.calcBearingStressInStruc( criticalForceOnBolt);
+	shearAnalyser.calcBoltThreadExtShearPlane( criticalForceOnBolt);
+	shearAnalyser.calcEdgeShearingInStruc( criticalForceOnBolt);
+	shearAnalyser.calcTensileYieldigAccHolesInStruc( criticalForceOnBolt);
 
 	return 0;
 }

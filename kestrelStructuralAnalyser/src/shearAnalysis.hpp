@@ -19,12 +19,14 @@ public:
 				   double yieldStressStruc,
 				   double safetyFactor,
 				   double boltNomDiameter,
-				   double boltPitch);
+				   double boltPitch,
+				   double strucThickness);
+
 	virtual ~shearAnalysis();
 
 	void calcShearInBolts ( double criticalShearForce );
-	void calcBearingStressInBolt ();
-	void calcBearingStressInStruc();
+	void calcBearingStressInBolt ( double criticalShearForce );
+	void calcBearingStressInStruc( double criticalShearForce );
 	void calcBoltThreadExtShearPlane();
 	void calcEdgeShearingInStruc();
 	void calcTensileYieldigAccHolesInStruc();
@@ -38,14 +40,18 @@ public:
 
 	double myBoltNomDiameter;
 	double myBoltPitch;
+	double myStrucThickness;
 
 	double myBoltMinDiameter;
 	double myBoltMinArea;
 	double myBoltNomArea;
+	double myBoltBearingArea;
 
 	double myShearYieldStressBolt;
 	double myShearYieldStressStruc;
 	double myShearStressBolt;
+	double myBearingStressBolt;
+	double myBearingStressStruc;
 
 
 
